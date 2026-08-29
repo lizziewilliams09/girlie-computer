@@ -1,0 +1,20 @@
+module GirlieComputer
+
+
+
+## What's happening here is:
+
+# GirlieComputerQML/ = the physical folder on your computer.
+# qmldir = tells QML what this collection is.
+# module GirlieComputer = declares “this is the QML module named GirlieComputer.”
+
+
+Main main.qml
+
+
+# this is basically a little registration entry. It tells QML:
+# “This module contains a component/type called Main and its code lives in the file Main.qml.”
+
+Books books.qml
+
+InsertBook insert_book.qml
