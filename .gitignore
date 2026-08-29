@@ -1,0 +1,31 @@
+# A .gitignore file is literally just a list of files/folders that Git should pretend don't exist.
+
+## Python generated files
+
+# When Python runs your code, it sometimes automatically creates a folder called: __pycache__
+# containing little compiled versions of Python files that help Python run/import things efficiently.
+__pycache__/
+
+# this means: Ignore any file ending in .pyc.
+# (The * means anything)
+# .pyc files are also automatically generated compiled Python files.
+*.pyc
+
+## Virtual environment
+
+# In extremely simplified terms, it's a private little Python setup specifically for Girlie Computer.
+# That .venv folder can contain thousands of files.
+# We absolutely don't want Git uploading all of those. Instead, GitHub will eventually have a small file saying essentially:
+# "Girlie Computer requires PySide6 version X, Pygame version Y..."
+
+Then another computer can install those packages itself.
+.venv/
+
+# Girlie Computer's personal database
+# That actual file contains your data.
+*.db
+
+## Environment/secrets
+
+# Sometimes programs need secret information — API keys, passwords/tokens, configuration that shouldn't be public, etc.
+# A common place to keep those locally is: .env
