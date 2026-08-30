@@ -7,6 +7,13 @@ GirliePopup {
 
     signal bookAdded()
 
+    onClosed: {
+        titleInput.text = ""
+        authorInput.text = ""
+        dateReadInput.text = ""
+        ratingInput.text = ""
+    }
+
     ColumnLayout {
         anchors.centerIn: parent
         spacing: 25
