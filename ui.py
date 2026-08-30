@@ -114,15 +114,38 @@ class Backend(QObject):
 
         return items
 
+    @Slot(str, int, "QVariantList")
+    def edit_item(self, item_name, item_id, field_inputs):
+        section = sections[item_name]
+
+        set_clause = ", ".join(
+            [f"{field} = ?" for field in section["fields"]]
+        )
+
+        edit_item_sql = f"""
+        UPDATE {section["table"]}
+        SET {set_clause}
+        WHERE {section["id"]} = ?
+        """
+
+        cursor.execute(
+            edit_item_sql,
+            field_inputs + [item_id]
+        )
+
+        connection.commit()
+
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
     engine.addImportPath(sys.path[0])
+    
     # Create Python backend object
     backend = Backend()
 
     # Give QML access to it under the name "backend"
     engine.rootContext().setContextProperty("backend", backend)
+
     engine.loadFromModule("GirlieComputer", "Main")
     if not engine.rootObjects():
         sys.exit(-1)

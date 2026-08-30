@@ -13,12 +13,11 @@ Popup {
     modal: true
     focus: true
 
-    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-
-    // The book we clicked on
     property var book: null
 
     signal bookEdited()
+
+    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
     background: Rectangle {
         color: "#fff3f8"
@@ -27,7 +26,6 @@ Popup {
         radius: 18
     }
 
-    // X button
     Button {
         id: closeButton
 
@@ -59,16 +57,14 @@ Popup {
         }
     }
 
-
-
     ColumnLayout {
         anchors.centerIn: parent
-        spacing: 22
+        spacing: 25
 
         Text {
-            text: book ? "♡ " + book.Title.toUpperCase() + " ♡" : ""
+            text: "♡ EDIT BOOK ♡"
 
-            font.pixelSize: 26
+            font.pixelSize: 28
             font.bold: true
             color: "#d95f96"
 
@@ -77,79 +73,134 @@ Popup {
 
         GridLayout {
             columns: 2
-            columnSpacing: 25
-            rowSpacing: 18
+            columnSpacing: 15
+            rowSpacing: 12
 
             Text {
                 text: "Title:"
                 color: "#b86b8c"
                 font.pixelSize: 16
-                font.bold: true
             }
 
-            Text {
+            TextField {
+                id: titleInput
+
                 text: book ? book.Title : ""
+
+                Layout.preferredWidth: 250
+
                 color: "#b94f82"
                 font.pixelSize: 16
+
+                background: Rectangle {
+                    color: "#fffafd"
+                    border.color: titleInput.activeFocus ? "#d95f96" : "#e8a9c4"
+                    border.width: 2
+                    radius: 8
+                }
             }
 
             Text {
                 text: "Author:"
                 color: "#b86b8c"
                 font.pixelSize: 16
-                font.bold: true
             }
 
-            Text {
+            TextField {
+                id: authorInput
+
                 text: book ? book.Author : ""
+
+                Layout.preferredWidth: 250
+
                 color: "#b94f82"
                 font.pixelSize: 16
+
+                background: Rectangle {
+                    color: "#fffafd"
+                    border.color: authorInput.activeFocus ? "#d95f96" : "#e8a9c4"
+                    border.width: 2
+                    radius: 8
+                }
             }
 
             Text {
                 text: "Date read:"
                 color: "#b86b8c"
                 font.pixelSize: 16
-                font.bold: true
             }
 
-            Text {
+            TextField {
+                id: dateReadInput
+
                 text: book ? book.DateRead : ""
+
+                Layout.preferredWidth: 250
+
                 color: "#b94f82"
                 font.pixelSize: 16
+
+                background: Rectangle {
+                    color: "#fffafd"
+                    border.color: dateReadInput.activeFocus ? "#d95f96" : "#e8a9c4"
+                    border.width: 2
+                    radius: 8
+                }
             }
 
             Text {
                 text: "Rating:"
                 color: "#b86b8c"
                 font.pixelSize: 16
-                font.bold: true
             }
 
-            Text {
-                text: book ? book.Rating + " / 10" : ""
+            TextField {
+                id: ratingInput
+
+                text: book ? book.Rating : ""
+
+                Layout.preferredWidth: 250
+
                 color: "#b94f82"
                 font.pixelSize: 16
+
+                background: Rectangle {
+                    color: "#fffafd"
+                    border.color: ratingInput.activeFocus ? "#d95f96" : "#e8a9c4"
+                    border.width: 2
+                    radius: 8
+                }
             }
         }
 
         Button {
-            id: editButton
+            id: saveButton
 
-            text: "EDIT BOOK"
+            text: "SAVE CHANGES"
 
             Layout.alignment: Qt.AlignHCenter
-            Layout.preferredWidth: 140
+            Layout.preferredWidth: 160
             Layout.preferredHeight: 45
 
             onClicked: {
-                editBookPopup.book = book
-                editBookPopup.open()
+                backend.edit_item(
+                    "books",
+                    book.BookID,
+                    [
+                        titleInput.text,
+                        authorInput.text,
+                        dateReadInput.text,
+                        ratingInput.text
+                    ]
+                )
+
+                bookEdited()
+                popup.close()
             }
 
             background: Rectangle {
                 radius: 10
-                color: editButton.hovered ? "#f7b9d0" : "#f29abb"
+                color: saveButton.hovered ? "#f7b9d0" : "#f29abb"
                 border.color: "#c65380"
                 border.width: 2
             }
@@ -163,15 +214,6 @@ Popup {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
             }
-        }
-    }
-
-    EditBook {
-        id: editBookPopup
-
-        onBookEdited: {
-            popup.bookEdited()
-            popup.close()
         }
     }
 }

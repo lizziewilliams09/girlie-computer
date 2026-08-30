@@ -206,5 +206,9 @@ Rectangle {
 
     ViewBook {
         id: viewBookPopup
-    }
+
+        onBookEdited: {
+            books = backend.get_items("books")
+        }
+}
 }
