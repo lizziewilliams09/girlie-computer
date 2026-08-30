@@ -29,3 +29,5 @@ Then another computer can install those packages itself.
 
 # Sometimes programs need secret information — API keys, passwords/tokens, configuration that shouldn't be public, etc.
 # A common place to keep those locally is: .env
+
+notes.txt
