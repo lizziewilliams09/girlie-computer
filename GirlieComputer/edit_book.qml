@@ -89,15 +89,7 @@ GirliePopup {
                 borderColor: Theme.dangerButtonBorder
                 textColor: Theme.white
 
-                onClicked: {
-                    backend.delete_item(
-                        "books",
-                        book.BookID
-                    )
-
-                    bookDeleted()
-                    popup.close()
-                }
+                onClicked: confirmDeletePopup.open()
             }
 
             GirlieButton {
@@ -106,22 +98,58 @@ GirliePopup {
                 Layout.preferredWidth: 160
                 Layout.preferredHeight: 45
 
-                onClicked: {
-                    backend.edit_item(
-                        "books",
-                        book.BookID,
-                        [
-                            titleInput.text,
-                            authorInput.text,
-                            dateReadInput.text,
-                            ratingInput.text
-                        ]
-                    )
-
-                    bookEdited()
-                    popup.close()
-                }
+                onClicked: confirmSavePopup.open()
             }
+        }
+    }
+
+
+    // -------------------------
+    // SAVE CONFIRMATION
+    // -------------------------
+
+    GirlieConfirmPopup {
+        id: confirmSavePopup
+
+        titleText: "♡ SAVE CHANGES? ♡"
+        messageText: "Are you sure you want to save these changes?"
+
+        onConfirmed: {
+            backend.edit_item(
+                "books",
+                book.BookID,
+                [
+                    titleInput.text,
+                    authorInput.text,
+                    dateReadInput.text,
+                    ratingInput.text
+                ]
+            )
+
+            bookEdited()
+            popup.close()
+        }
+    }
+
+
+    // -------------------------
+    // DELETE CONFIRMATION
+    // -------------------------
+
+    GirlieConfirmPopup {
+        id: confirmDeletePopup
+
+        titleText: "♡ DELETE BOOK? ♡"
+        messageText: "Are you sure you want to delete this book?"
+
+        onConfirmed: {
+            backend.delete_item(
+                "books",
+                book.BookID
+            )
+
+            bookDeleted()
+            popup.close()
         }
     }
 }

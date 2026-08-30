@@ -78,20 +78,34 @@ GirliePopup {
             Layout.preferredWidth: 140
             Layout.preferredHeight: 45
 
-            onClicked: {
-                backend.add_item(
-                    "books",
-                    [
-                        titleInput.text,
-                        authorInput.text,
-                        dateReadInput.text,
-                        ratingInput.text
-                    ]
-                )
+            onClicked: confirmAddPopup.open()
+        }
+    }
 
-                bookAdded()
-                popup.close()
-            }
+
+    // -------------------------
+    // ADD CONFIRMATION
+    // -------------------------
+
+    GirlieConfirmPopup {
+        id: confirmAddPopup
+
+        titleText: "♡ ADD BOOK? ♡"
+        messageText: "Are you sure you want to add this book?"
+
+        onConfirmed: {
+            backend.add_item(
+                "books",
+                [
+                    titleInput.text,
+                    authorInput.text,
+                    dateReadInput.text,
+                    ratingInput.text
+                ]
+            )
+
+            bookAdded()
+            popup.close()
         }
     }
 }

@@ -30,3 +30,5 @@ GirlieButton 1.0 girlie_button.qml
 GirlieTextField 1.0 girlie_text_field.qml
 
 GirliePopup 1.0 girlie_popup.qml
+
+GirlieConfirmPopup 1.0 girlie_confirm_popup.qml
