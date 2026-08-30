@@ -22,6 +22,38 @@ Popup {
         radius: 18
     }
 
+    // X button in top-right corner
+    Button {
+        id: closeButton
+
+        width: 35
+        height: 35
+
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.topMargin: 10
+        anchors.rightMargin: 10
+
+        text: "×"
+
+        onClicked: popup.close()
+
+        background: Rectangle {
+            color: closeButton.hovered ? "#ffd9e8" : "transparent"
+            radius: 8
+        }
+
+        contentItem: Text {
+            text: parent.text
+            color: "#d95f96"
+            font.pixelSize: 24
+            font.bold: true
+
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
+
     ColumnLayout {
         anchors.centerIn: parent
         spacing: 25
@@ -134,27 +166,40 @@ Popup {
             }
         }
 
+        // Save the book
         Button {
-            id: closeButton
+            id: addBookButton
 
-            text: "CLOSE"
+            text: "ADD BOOK"
 
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredWidth: 140
             Layout.preferredHeight: 45
 
-            onClicked: popup.close()
+            onClicked: {
+                backend.add_item(
+                    "books",
+                    [
+                        titleInput.text,
+                        authorInput.text,
+                        dateReadInput.text,
+                        ratingInput.text
+                    ]
+                )
+
+                popup.close()
+            }
 
             background: Rectangle {
                 radius: 10
-                color: closeButton.hovered ? "#ffeaf2" : "#ffd9e8"
-                border.color: "#d95f96"
+                color: addBookButton.hovered ? "#f7b9d0" : "#f29abb"
+                border.color: "#c65380"
                 border.width: 2
             }
 
             contentItem: Text {
                 text: parent.text
-                color: "#b94f82"
+                color: "#ffffff"
                 font.pixelSize: 16
                 font.bold: true
 
