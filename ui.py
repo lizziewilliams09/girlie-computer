@@ -92,7 +92,27 @@ class Backend(QObject):
 
         cursor.execute(insert_item_sql, field_inputs)
         connection.commit()
-        view_items(item_name)
+
+    @Slot(str, result="QVariantList")
+    def get_items(self, item_name):
+        section = sections[item_name]
+
+        cursor.execute(f"SELECT * FROM {section['table']}")
+        rows = cursor.fetchall()
+
+        items = []
+
+        for row in rows:
+            item = {
+                section["id"]: row[0]
+            }
+
+            for i, field in enumerate(section["fields"]):
+                item[field] = row[i + 1]
+
+            items.append(item)
+
+        return items
 
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)

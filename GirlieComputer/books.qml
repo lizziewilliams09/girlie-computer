@@ -3,10 +3,19 @@ import QtQuick.Controls.Basic
 import QtQuick.Layouts
 
 Rectangle {
+    id: booksPage
+
     color: "#fff3f8"
+
+    property var books: []
+
+    Component.onCompleted: {
+        books = backend.get_items("books")
+    }
 
     Text {
         text: "♡ MY BOOKS ♡"
+
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: 45
@@ -17,37 +26,37 @@ Rectangle {
     }
 
     Button {
-    id: homeButton
+        id: homeButton
 
-    text: "⌂  HOME"
+        text: "⌂  HOME"
 
-    anchors.top: parent.top
-    anchors.right: parent.right
-    anchors.topMargin: 25
-    anchors.rightMargin: 25
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.topMargin: 25
+        anchors.rightMargin: 25
 
-    width: 120
-    height: 45
+        width: 120
+        height: 45
 
-    onClicked: stackView.pop()
+        onClicked: stackView.pop()
 
-    background: Rectangle {
-        radius: 12
-        color: homeButton.hovered ? "#ffeaf2" : "#ffd9e8"
-        border.color: "#d95f96"
-        border.width: 2
+        background: Rectangle {
+            radius: 12
+            color: homeButton.hovered ? "#ffeaf2" : "#ffd9e8"
+            border.color: "#d95f96"
+            border.width: 2
+        }
+
+        contentItem: Text {
+            text: parent.text
+            color: "#b94f82"
+            font.pixelSize: 17
+            font.bold: true
+
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
     }
-
-    contentItem: Text {
-        text: parent.text
-        color: "#b94f82"
-        font.pixelSize: 17
-        font.bold: true
-
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-    }
-}
 
     // The actual bookshelf
     Rectangle {
@@ -87,7 +96,7 @@ Rectangle {
             color: "#b77c4d"
         }
 
-        // Our books will sit here
+        // Books + add button
         Row {
             anchors.left: parent.left
             anchors.leftMargin: 35
@@ -96,6 +105,39 @@ Rectangle {
             anchors.bottomMargin: 108
 
             spacing: 8
+
+            Repeater {
+                model: books
+
+                Rectangle {
+                    width: 65
+                    height: 130
+
+                    color: "#e8a9c4"
+                    border.color: "#b94f82"
+                    border.width: 3
+                    radius: 4
+
+                    Text {
+                        text: modelData.Title
+
+                        anchors.centerIn: parent
+
+                        width: parent.height - 10
+
+                        color: "#ffffff"
+                        font.pixelSize: 14
+                        font.bold: true
+
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+
+                        rotation: -90
+
+                        elide: Text.ElideRight
+                    }
+                }
+            }
 
             // ADD BOOK
             Button {
@@ -125,9 +167,11 @@ Rectangle {
                 }
             }
         }
+    }
 
     Text {
         text: "click + to add a book"
+
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: bookshelf.bottom
         anchors.topMargin: 20
@@ -137,7 +181,10 @@ Rectangle {
     }
 
     InsertBook {
-            id: insertBookPopup
-            }
+        id: insertBookPopup
+
+        onBookAdded: {
+        books = backend.get_items("books")
+        }
     }
 }

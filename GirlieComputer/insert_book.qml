@@ -13,6 +13,8 @@ Popup {
     modal: true
     focus: true
 
+    signal bookAdded()
+
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
     background: Rectangle {
@@ -186,7 +188,7 @@ Popup {
                         ratingInput.text
                     ]
                 )
-
+                bookAdded()
                 popup.close()
             }
 
