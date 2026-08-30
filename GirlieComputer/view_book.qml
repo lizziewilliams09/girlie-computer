@@ -2,54 +2,14 @@ import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Layouts
 
-Popup {
+GirliePopup {
     id: popup
-
-    anchors.centerIn: Overlay.overlay
-
-    width: Theme.popupWidth
-    height: Theme.popupHeight
-
-    modal: true
-    focus: true
-
-    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
     // The book we clicked on
     property var book: null
 
     signal bookEdited()
     signal bookDeleted()
-
-    background: Rectangle {
-        color: Theme.background
-        border.color: Theme.primary
-        border.width: Theme.popupBorderWidth
-        radius: Theme.popupRadius
-    }
-
-    // X button
-    GirlieButton {
-        text: "×"
-
-        width: 35
-        height: 35
-
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.topMargin: 10
-        anchors.rightMargin: 10
-
-        normalColor: "transparent"
-        hoverColor: Theme.primarySoft
-        borderColor: "transparent"
-        textColor: Theme.primary
-
-        buttonRadius: Theme.smallRadius
-        buttonTextSize: Theme.closeButtonTextSize
-
-        onClicked: popup.close()
-    }
 
     ColumnLayout {
         anchors.centerIn: parent
