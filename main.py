@@ -1,11 +1,15 @@
+
+import sys
 import sqlite3
+from PySide6.QtCore import QObject, Slot
+from PySide6.QtGui import QGuiApplication
+from PySide6.QtQml import QQmlApplicationEngine
 
 connection = sqlite3.connect('girlie.db')
 cursor = connection.cursor()
 
 sections = {
-    "B": {
-        "name": "Souvenirs",
+    "souvenirs": {
         "table": "souvenirs",
         "id": "SouvenirID",
         "fields": {
@@ -17,8 +21,7 @@ sections = {
         }
     },
 
-    "C": {
-        "name": "Music",
+    "music": {
         "table": "music",
         "id": "MusicID",
         "fields": {
@@ -28,8 +31,7 @@ sections = {
         }
     },
 
-    "D": {
-        "name": "Books",
+    "books": {
         "table": "books",
         "id": "BookID",
         "fields": {
@@ -40,8 +42,7 @@ sections = {
         }
     },
 
-    "E": {
-        "name": "Films",
+    "films": {
         "table": "films",
         "id": "FilmID",
         "fields": {
@@ -52,8 +53,7 @@ sections = {
         }
     },
 
-    "F": {
-        "name": "Diary",
+    "diary": {
         "table": "diary",
         "id": "EntryID",
         "fields": {
@@ -66,139 +66,127 @@ sections = {
 }
 
 def create_tables(sections=sections, cursor=cursor):
-  for section in sections.values():
+    for section in sections.values():
 
-      columns = [f"{section['id']} INTEGER PRIMARY KEY"]
+        columns = [f"{section['id']} INTEGER PRIMARY KEY"]
 
-      for field, definition in section["fields"].items():
-          columns.append(f"{field} {definition}")
+        for field, definition in section["fields"].items():
+            columns.append(f"{field} {definition}")
 
-      create_table_sql = f"""
-          CREATE TABLE IF NOT EXISTS {section['table']} (
-              {", ".join(columns)}
-          );
-      """
+        create_table_sql = f"""
+            CREATE TABLE IF NOT EXISTS {section['table']} (
+                {", ".join(columns)}
+            );
+        """
 
-      cursor.execute(create_table_sql)
+        cursor.execute(create_table_sql)
 
-def start_screen():
-  while True:
-    print("""<3 GIRLIE COMPUTER <3\n\n
-    A - My World\n
-    B - Souvenirs\n
-    C - Music\n
-    D - Books\n
-    E - Films\n
-    F - Diary\n
-    G - EXIT""")
-    action1 = input("Select an Option: ")
-    print("\n")
+    connection.commit()
+    
+def view_items(item_name):
+    section = sections[item_name]
 
-    if action1 == "A":
-      print("Not Available Yet - SORRY!")
-    elif action1 in sections:
-       section = sections[action1]
-       print(f"""<3 {section["name"].upper()} <3\n\n
-      A - View {section["name"]}\n
-      B - Add {section["name"]}\n
-      C - Edit {section["name"]}\n
-      D - Delete {section["name"]}\n
-      """)
-       action2 = input("Select an Option: ")
+    cursor.execute(f"SELECT * FROM {section['table']}")
+    rows = cursor.fetchall()
 
-       if action2 == "A":
-          view_items(action1)
-       elif action2 == "B":
-          insert_item(action1)
-       elif action2 == "C":
-          edit_item(action1)
-       elif action2 == "D":
-          delete_item(action1)
-    elif action1 == "G":
-      print("<3 GOODBYE <3")
-      break
+    for row in rows:
+        print(f"<3 {row[0]}. {row[1].upper()} <3")
 
-    print("\n")
+        for i, field in enumerate(section["fields"]):
+            print(f"{field}: {row[i+1]}")
 
-def view_items(action1, cursor=cursor, sections=sections):
-  section = sections[action1]
+        print("\n")
 
-  cursor.execute(f"SELECT * FROM {section['table']}")
-  rows = cursor.fetchall()
+class Backend(QObject):
 
-  for row in rows:
-    print(f"<3 {row[0]}. {row[1].upper()} <3")
+    @Slot(str, "QVariantList")
+    def add_item(self, item_name, field_inputs):
+        section = sections[item_name]
 
-    for i, field in enumerate(section["fields"]):
-        print(f"{field}: {row[i+1]}")
+        insert_item_sql = f"""
+        INSERT INTO {section["table"]} ({", ".join(section["fields"])})
+        VALUES ({", ".join(["?"] * len(section["fields"]))});
+        """
 
-    print("\n")
+        cursor.execute(insert_item_sql, field_inputs)
+        connection.commit()
 
-def insert_item(action1, cursor=cursor, sections=sections):
-  section = sections[action1]
+    @Slot(str, result="QVariantList")
+    def get_items(self, item_name):
+        section = sections[item_name]
 
-  field_inputs = []
+        cursor.execute(f"SELECT * FROM {section['table']}")
+        rows = cursor.fetchall()
 
-  for field in section["fields"]:
-    field_inputs.append(input(f"{field}: "))
+        items = []
 
-  insert_item_sql = f"""
-  INSERT INTO {section["table"]} ({", ".join(section["fields"])})
-  VALUES ({", ".join(["?"] * len(section["fields"]))});
-  """
+        for row in rows:
+            item = {
+                section["id"]: row[0]
+            }
 
-  confirm = input("Are you sure you would like to make these changes? Y/N: ")
+            for i, field in enumerate(section["fields"]):
+                item[field] = row[i + 1]
 
-  if confirm.upper() == "Y":
-    cursor.execute(insert_item_sql, field_inputs)
+            items.append(item)
 
+        return items
 
-def edit_item(action1, cursor=cursor, sections=sections):
-    section = sections[action1]
+    @Slot(str, int, "QVariantList")
+    def edit_item(self, item_name, item_id, field_inputs):
+        section = sections[item_name]
 
-    view_items(action1)
+        set_clause = ", ".join(
+            [f"{field} = ?" for field in section["fields"]]
+        )
 
-    chosen_item = input("Please type the number of the item you would like to edit: ")
+        edit_item_sql = f"""
+        UPDATE {section["table"]}
+        SET {set_clause}
+        WHERE {section["id"]} = ?
+        """
 
-    chosen_field = input("Please type the field you would like to change: ")
+        cursor.execute(
+            edit_item_sql,
+            field_inputs + [item_id]
+        )
 
-    while chosen_field not in section["fields"]:
-      print("That is not a valid field.")
-      chosen_field = input("Please type the field you would like to change: ")
+        connection.commit()
 
-    changed_value = input("Please type what you would like to change it to: ")
+    @Slot(str, int)
+    def delete_item(self, item_name, item_id):
+        section = sections[item_name]
 
-    edit_item_sql = f"""
-    UPDATE {section["table"]}
-    SET {chosen_field} = ?
-    WHERE {section["id"]} = ?
-    """
-    confirm = input("Are you sure you would like to make these changes? Y/N: ")
+        delete_item_sql = f"""
+        DELETE FROM {section["table"]}
+        WHERE {section["id"]} = ?
+        """
 
-    if confirm.upper() == "Y":
-      cursor.execute(edit_item_sql, (changed_value, chosen_item))
+        cursor.execute(delete_item_sql, (item_id,))
+        connection.commit()
 
+if __name__ == "__main__":
+    create_tables()
 
-def delete_item(action1, cursor=cursor, sections=sections):
+    app = QGuiApplication(sys.argv)
+    engine = QQmlApplicationEngine()
+    engine.addImportPath(sys.path[0])
+    
+    # Create Python backend object
+    backend = Backend()
 
-    section = sections[action1]
+    # Give QML access to it under the name "backend"
+    engine.rootContext().setContextProperty("backend", backend)
 
-    view_items(action1)
+    engine.loadFromModule("GirlieComputer", "Main")
 
-    chosen_item = input("Please type the number of the item you would like to delete: ")
+    if not engine.rootObjects():
+        connection.close()
+        sys.exit(-1)
 
-    confirm = input("Are you sure? Y/N: ")
+    exit_code = app.exec()
 
-    delete_item_sql = f"""
-    DELETE FROM {section["table"]}
-    WHERE {section["id"]} = ?
-    """
+    del engine
+    connection.close()
 
-    if confirm.upper() == "Y":
-      cursor.execute(delete_item_sql, (chosen_item,))
-
-create_tables()
-start_screen()
-
-connection.commit()
-connection.close()
+    sys.exit(exit_code)
