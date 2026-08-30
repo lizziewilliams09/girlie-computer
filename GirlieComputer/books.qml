@@ -210,5 +210,9 @@ Rectangle {
         onBookEdited: {
             books = backend.get_items("books")
         }
+
+        onBookDeleted: {
+            books = backend.get_items("books")
+        }
 }
 }

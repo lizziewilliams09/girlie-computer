@@ -135,6 +135,18 @@ class Backend(QObject):
 
         connection.commit()
 
+    @Slot(str, int)
+    def delete_item(self, item_name, item_id):
+        section = sections[item_name]
+
+        delete_item_sql = f"""
+        DELETE FROM {section["table"]}
+        WHERE {section["id"]} = ?
+        """
+
+        cursor.execute(delete_item_sql, (item_id,))
+        connection.commit()
+
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()

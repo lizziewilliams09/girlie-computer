@@ -16,6 +16,7 @@ Popup {
     property var book: null
 
     signal bookEdited()
+    signal bookDeleted()
 
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
@@ -173,46 +174,86 @@ Popup {
             }
         }
 
-        Button {
-            id: saveButton
-
-            text: "SAVE CHANGES"
-
+        RowLayout {
             Layout.alignment: Qt.AlignHCenter
-            Layout.preferredWidth: 160
-            Layout.preferredHeight: 45
+            spacing: 15
 
-            onClicked: {
-                backend.edit_item(
-                    "books",
-                    book.BookID,
-                    [
-                        titleInput.text,
-                        authorInput.text,
-                        dateReadInput.text,
-                        ratingInput.text
-                    ]
-                )
+            Button {
+                id: deleteButton
 
-                bookEdited()
-                popup.close()
+                text: "DELETE BOOK"
+
+                Layout.preferredWidth: 140
+                Layout.preferredHeight: 45
+
+                onClicked: {
+                    backend.delete_item(
+                        "books",
+                        book.BookID
+                    )
+
+                    bookDeleted()
+                    popup.close()
+                }
+
+                background: Rectangle {
+                    radius: 10
+                    color: deleteButton.hovered ? "#f3c1c1" : "#e59a9a"
+                    border.color: "#b95f5f"
+                    border.width: 2
+                }
+
+                contentItem: Text {
+                    text: parent.text
+                    color: "#ffffff"
+                    font.pixelSize: 16
+                    font.bold: true
+
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
             }
 
-            background: Rectangle {
-                radius: 10
-                color: saveButton.hovered ? "#f7b9d0" : "#f29abb"
-                border.color: "#c65380"
-                border.width: 2
-            }
+            Button {
+                id: saveButton
 
-            contentItem: Text {
-                text: parent.text
-                color: "#ffffff"
-                font.pixelSize: 16
-                font.bold: true
+                text: "SAVE CHANGES"
 
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
+                Layout.preferredWidth: 160
+                Layout.preferredHeight: 45
+
+                onClicked: {
+                    backend.edit_item(
+                        "books",
+                        book.BookID,
+                        [
+                            titleInput.text,
+                            authorInput.text,
+                            dateReadInput.text,
+                            ratingInput.text
+                        ]
+                    )
+
+                    bookEdited()
+                    popup.close()
+                }
+
+                background: Rectangle {
+                    radius: 10
+                    color: saveButton.hovered ? "#f7b9d0" : "#f29abb"
+                    border.color: "#c65380"
+                    border.width: 2
+                }
+
+                contentItem: Text {
+                    text: parent.text
+                    color: "#ffffff"
+                    font.pixelSize: 16
+                    font.bold: true
+
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
             }
         }
     }

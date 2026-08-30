@@ -19,6 +19,7 @@ Popup {
     property var book: null
 
     signal bookEdited()
+    signal bookDeleted()
 
     background: Rectangle {
         color: "#fff3f8"
@@ -171,6 +172,11 @@ Popup {
 
         onBookEdited: {
             popup.bookEdited()
+            popup.close()
+        }
+
+        onBookDeleted: {
+            popup.bookDeleted()
             popup.close()
         }
     }
