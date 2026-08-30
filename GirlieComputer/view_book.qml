@@ -29,8 +29,8 @@ Popup {
     }
 
     // X button
-    Button {
-        id: closeButton
+    GirlieButton {
+        text: "×"
 
         width: 35
         height: 35
@@ -40,27 +40,15 @@ Popup {
         anchors.topMargin: 10
         anchors.rightMargin: 10
 
-        text: "×"
+        normalColor: "transparent"
+        hoverColor: Theme.primarySoft
+        borderColor: "transparent"
+        textColor: Theme.primary
+
+        buttonRadius: Theme.smallRadius
+        buttonTextSize: Theme.closeButtonTextSize
 
         onClicked: popup.close()
-
-        background: Rectangle {
-            color: closeButton.hovered
-                   ? Theme.primarySoft
-                   : "transparent"
-
-            radius: Theme.smallRadius
-        }
-
-        contentItem: Text {
-            text: parent.text
-            color: Theme.primary
-            font.pixelSize: Theme.closeButtonTextSize
-            font.bold: true
-
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-        }
     }
 
     ColumnLayout {
@@ -135,9 +123,7 @@ Popup {
             }
         }
 
-        Button {
-            id: editButton
-
+        GirlieButton {
             text: "EDIT BOOK"
 
             Layout.alignment: Qt.AlignHCenter
@@ -147,27 +133,6 @@ Popup {
             onClicked: {
                 editBookPopup.book = book
                 editBookPopup.open()
-            }
-
-            background: Rectangle {
-                radius: Theme.buttonRadius
-
-                color: editButton.hovered
-                       ? Theme.actionButtonHover
-                       : Theme.actionButton
-
-                border.color: Theme.actionButtonBorder
-                border.width: Theme.borderWidth
-            }
-
-            contentItem: Text {
-                text: parent.text
-                color: Theme.white
-                font.pixelSize: Theme.buttonTextSize
-                font.bold: true
-
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
             }
         }
     }
@@ -186,4 +151,3 @@ Popup {
         }
     }
 }
-

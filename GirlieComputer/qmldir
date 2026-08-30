@@ -9,18 +9,20 @@ module GirlieComputer
 # module GirlieComputer = declares “this is the QML module named GirlieComputer.”
 
 
-Main main.qml
+Main 1.0 main.qml
 
 
 # this is basically a little registration entry. It tells QML:
 # “This module contains a component/type called Main and its code lives in the file main.qml.”
 
-Books books.qml
+Books 1.0 books.qml
 
-InsertBook insert_book.qml
+InsertBook 1.0 insert_book.qml
 
-ViewBook view_book.qml
+ViewBook 1.0 view_book.qml
 
-EditBook edit_book.qml
+EditBook 1.0 edit_book.qml
 
 singleton Theme 1.0 theme.qml
+
+GirlieButton 1.0 girlie_button.qml

@@ -1,4 +1,3 @@
-
 import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Layouts
@@ -26,9 +25,7 @@ Rectangle {
         color: Theme.primary
     }
 
-    Button {
-        id: homeButton
-
+    GirlieButton {
         text: "⌂  HOME"
 
         anchors.top: parent.top
@@ -39,28 +36,15 @@ Rectangle {
         width: 120
         height: 45
 
+        normalColor: Theme.primarySoft
+        hoverColor: Theme.primaryHover
+        borderColor: Theme.primary
+        textColor: Theme.primaryDark
+
+        buttonRadius: Theme.mediumRadius
+        buttonTextSize: Theme.homeButtonTextSize
+
         onClicked: stackView.pop()
-
-        background: Rectangle {
-            radius: Theme.mediumRadius
-
-            color: homeButton.hovered
-                   ? Theme.primaryHover
-                   : Theme.primarySoft
-
-            border.color: Theme.primary
-            border.width: Theme.borderWidth
-        }
-
-        contentItem: Text {
-            text: parent.text
-            color: Theme.primaryDark
-            font.pixelSize: Theme.homeButtonTextSize
-            font.bold: true
-
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-        }
     }
 
     // The actual bookshelf
@@ -164,34 +148,21 @@ Rectangle {
             }
 
             // ADD BOOK
-            Button {
-                id: addBook
+            GirlieButton {
+                text: "+"
 
                 width: 65
                 height: 130
 
+                normalColor: Theme.actionButton
+                hoverColor: Theme.actionButtonHover
+                borderColor: Theme.actionButtonBorder
+                textColor: Theme.white
+
+                buttonRadius: 4
+                buttonTextSize: 45
+
                 onClicked: insertBookPopup.open()
-
-                background: Rectangle {
-                    color: addBook.hovered
-                           ? Theme.actionButtonHover
-                           : Theme.actionButton
-
-                    border.color: Theme.actionButtonBorder
-                    border.width: Theme.popupBorderWidth
-                    radius: 4
-                }
-
-                contentItem: Text {
-                    text: "+"
-                    color: Theme.white
-
-                    font.pixelSize: 45
-                    font.bold: true
-
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
             }
         }
     }

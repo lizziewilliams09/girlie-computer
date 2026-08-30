@@ -28,33 +28,20 @@ Window {
                     Layout.alignment: Qt.AlignHCenter
                 }
 
-                Button {
-                    id: myWorldButton
-
+                GirlieButton {
                     text: "✿  MY WORLD  ✿"
+
                     Layout.alignment: Qt.AlignHCenter
                     Layout.preferredWidth: 300
                     Layout.preferredHeight: 60
 
-                    background: Rectangle {
-                        radius: Theme.largeButtonRadius
-                        color: myWorldButton.hovered
-                               ? Theme.primaryHover
-                               : Theme.primarySoft
+                    normalColor: Theme.primarySoft
+                    hoverColor: Theme.primaryHover
+                    borderColor: Theme.primary
+                    textColor: Theme.primaryDark
 
-                        border.color: Theme.primary
-                        border.width: Theme.borderWidth
-                    }
-
-                    contentItem: Text {
-                        text: parent.text
-                        color: Theme.primaryDark
-                        font.pixelSize: Theme.largeMenuButtonTextSize
-                        font.bold: true
-
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                    }
+                    buttonRadius: Theme.largeButtonRadius
+                    buttonTextSize: Theme.largeMenuButtonTextSize
                 }
 
                 GridLayout {
@@ -63,148 +50,83 @@ Window {
                     rowSpacing: 18
                     Layout.alignment: Qt.AlignHCenter
 
-                    Button {
-                        id: souvenirsButton
-
+                    GirlieButton {
                         text: "★  SOUVENIRS"
+
                         Layout.preferredWidth: 220
                         Layout.preferredHeight: 70
 
-                        background: Rectangle {
-                            radius: Theme.largeButtonRadius
-                            color: souvenirsButton.hovered
-                                   ? Theme.souvenirsHover
-                                   : Theme.souvenirsSoft
+                        normalColor: Theme.souvenirsSoft
+                        hoverColor: Theme.souvenirsHover
+                        borderColor: Theme.souvenirsAccent
+                        textColor: Theme.souvenirsText
 
-                            border.color: Theme.souvenirsAccent
-                            border.width: Theme.borderWidth
-                        }
-
-                        contentItem: Text {
-                            text: parent.text
-                            color: Theme.souvenirsText
-                            font.pixelSize: Theme.menuButtonTextSize
-                            font.bold: true
-
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                        }
+                        buttonRadius: Theme.largeButtonRadius
+                        buttonTextSize: Theme.menuButtonTextSize
                     }
 
-                    Button {
-                        id: musicButton
-
+                    GirlieButton {
                         text: "♫  MUSIC"
+
                         Layout.preferredWidth: 220
                         Layout.preferredHeight: 70
 
-                        background: Rectangle {
-                            radius: Theme.largeButtonRadius
-                            color: musicButton.hovered
-                                   ? Theme.musicHover
-                                   : Theme.musicSoft
+                        normalColor: Theme.musicSoft
+                        hoverColor: Theme.musicHover
+                        borderColor: Theme.musicAccent
+                        textColor: Theme.musicText
 
-                            border.color: Theme.musicAccent
-                            border.width: Theme.borderWidth
-                        }
-
-                        contentItem: Text {
-                            text: parent.text
-                            color: Theme.musicText
-                            font.pixelSize: Theme.menuButtonTextSize
-                            font.bold: true
-
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                        }
+                        buttonRadius: Theme.largeButtonRadius
+                        buttonTextSize: Theme.menuButtonTextSize
                     }
 
-                    Button {
-                        id: booksButton
-
+                    GirlieButton {
                         text: "📖  BOOKS"
+
                         Layout.preferredWidth: 220
                         Layout.preferredHeight: 70
+
+                        normalColor: Theme.booksSoft
+                        hoverColor: Theme.booksHover
+                        borderColor: Theme.booksAccent
+                        textColor: Theme.booksText
+
+                        buttonRadius: Theme.largeButtonRadius
+                        buttonTextSize: Theme.menuButtonTextSize
 
                         onClicked: stackView.push("books.qml")
-
-                        background: Rectangle {
-                            radius: Theme.largeButtonRadius
-                            color: booksButton.hovered
-                                   ? Theme.booksHover
-                                   : Theme.booksSoft
-
-                            border.color: Theme.booksAccent
-                            border.width: Theme.borderWidth
-                        }
-
-                        contentItem: Text {
-                            text: parent.text
-                            color: Theme.booksText
-                            font.pixelSize: Theme.menuButtonTextSize
-                            font.bold: true
-
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                        }
                     }
 
-                    Button {
-                        id: filmsButton
-
+                    GirlieButton {
                         text: "🎬  FILMS"
+
                         Layout.preferredWidth: 220
                         Layout.preferredHeight: 70
 
-                        background: Rectangle {
-                            radius: Theme.largeButtonRadius
-                            color: filmsButton.hovered
-                                   ? Theme.filmsHover
-                                   : Theme.filmsSoft
+                        normalColor: Theme.filmsSoft
+                        hoverColor: Theme.filmsHover
+                        borderColor: Theme.filmsAccent
+                        textColor: Theme.filmsText
 
-                            border.color: Theme.filmsAccent
-                            border.width: Theme.borderWidth
-                        }
-
-                        contentItem: Text {
-                            text: parent.text
-                            color: Theme.filmsText
-                            font.pixelSize: Theme.menuButtonTextSize
-                            font.bold: true
-
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                        }
+                        buttonRadius: Theme.largeButtonRadius
+                        buttonTextSize: Theme.menuButtonTextSize
                     }
                 }
 
-                Button {
-                    id: diaryButton
-
+                GirlieButton {
                     text: "✎  DIARY  ✎"
+
                     Layout.alignment: Qt.AlignHCenter
                     Layout.preferredWidth: 300
                     Layout.preferredHeight: 60
 
-                    background: Rectangle {
-                        radius: Theme.largeButtonRadius
-                        color: diaryButton.hovered
-                               ? Theme.diaryHover
-                               : Theme.diarySoft
+                    normalColor: Theme.diarySoft
+                    hoverColor: Theme.diaryHover
+                    borderColor: Theme.diaryAccent
+                    textColor: Theme.diaryText
 
-                        border.color: Theme.diaryAccent
-                        border.width: Theme.borderWidth
-                    }
-
-                    contentItem: Text {
-                        text: parent.text
-                        color: Theme.diaryText
-                        font.pixelSize: Theme.largeMenuButtonTextSize
-                        font.bold: true
-
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                    }
+                    buttonRadius: Theme.largeButtonRadius
+                    buttonTextSize: Theme.largeMenuButtonTextSize
                 }
             }
         }

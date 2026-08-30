@@ -25,8 +25,8 @@ Popup {
     }
 
     // X button in top-right corner
-    Button {
-        id: closeButton
+    GirlieButton {
+        text: "×"
 
         width: 35
         height: 35
@@ -36,27 +36,15 @@ Popup {
         anchors.topMargin: 10
         anchors.rightMargin: 10
 
-        text: "×"
+        normalColor: "transparent"
+        hoverColor: Theme.primarySoft
+        borderColor: "transparent"
+        textColor: Theme.primary
+
+        buttonRadius: Theme.smallRadius
+        buttonTextSize: Theme.closeButtonTextSize
 
         onClicked: popup.close()
-
-        background: Rectangle {
-            color: closeButton.hovered
-                   ? Theme.primarySoft
-                   : "transparent"
-
-            radius: Theme.smallRadius
-        }
-
-        contentItem: Text {
-            text: parent.text
-            color: Theme.primary
-            font.pixelSize: Theme.closeButtonTextSize
-            font.bold: true
-
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-        }
     }
 
     ColumnLayout {
@@ -195,10 +183,7 @@ Popup {
             }
         }
 
-        // Save the book
-        Button {
-            id: addBookButton
-
+        GirlieButton {
             text: "ADD BOOK"
 
             Layout.alignment: Qt.AlignHCenter
@@ -218,27 +203,6 @@ Popup {
 
                 bookAdded()
                 popup.close()
-            }
-
-            background: Rectangle {
-                radius: Theme.buttonRadius
-
-                color: addBookButton.hovered
-                       ? Theme.actionButtonHover
-                       : Theme.actionButton
-
-                border.color: Theme.actionButtonBorder
-                border.width: Theme.borderWidth
-            }
-
-            contentItem: Text {
-                text: parent.text
-                color: Theme.white
-                font.pixelSize: Theme.buttonTextSize
-                font.bold: true
-
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
             }
         }
     }
