@@ -7,8 +7,8 @@ Popup {
 
     anchors.centerIn: Overlay.overlay
 
-    width: 450
-    height: 350
+    width: Theme.popupWidth
+    height: Theme.popupHeight
 
     modal: true
     focus: true
@@ -18,10 +18,10 @@ Popup {
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
     background: Rectangle {
-        color: "#fff3f8"
-        border.color: "#d95f96"
-        border.width: 3
-        radius: 18
+        color: Theme.background
+        border.color: Theme.primary
+        border.width: Theme.popupBorderWidth
+        radius: Theme.popupRadius
     }
 
     // X button in top-right corner
@@ -41,14 +41,17 @@ Popup {
         onClicked: popup.close()
 
         background: Rectangle {
-            color: closeButton.hovered ? "#ffd9e8" : "transparent"
-            radius: 8
+            color: closeButton.hovered
+                   ? Theme.primarySoft
+                   : "transparent"
+
+            radius: Theme.smallRadius
         }
 
         contentItem: Text {
             text: parent.text
-            color: "#d95f96"
-            font.pixelSize: 24
+            color: Theme.primary
+            font.pixelSize: Theme.closeButtonTextSize
             font.bold: true
 
             horizontalAlignment: Text.AlignHCenter
@@ -63,9 +66,9 @@ Popup {
         Text {
             text: "♡ ADD A BOOK ♡"
 
-            font.pixelSize: 28
+            font.pixelSize: Theme.popupTitleSize
             font.bold: true
-            color: "#d95f96"
+            color: Theme.primary
 
             Layout.alignment: Qt.AlignHCenter
         }
@@ -77,93 +80,117 @@ Popup {
 
             Text {
                 text: "Title:"
-                color: "#b86b8c"
-                font.pixelSize: 16
+                color: Theme.secondaryText
+                font.pixelSize: Theme.bodySize
             }
 
             TextField {
                 id: titleInput
+
                 placeholderText: "Book title..."
+
                 Layout.preferredWidth: 250
 
-                color: "#b94f82"
-                placeholderTextColor: "#c98ba6"
-                font.pixelSize: 16
+                color: Theme.primaryDark
+                placeholderTextColor: Theme.placeholderText
+                font.pixelSize: Theme.bodySize
 
                 background: Rectangle {
-                    color: "#fffafd"
-                    border.color: titleInput.activeFocus ? "#d95f96" : "#e8a9c4"
-                    border.width: 2
-                    radius: 8
+                    color: Theme.inputBackground
+
+                    border.color: titleInput.activeFocus
+                                  ? Theme.primary
+                                  : Theme.inputBorder
+
+                    border.width: Theme.borderWidth
+                    radius: Theme.smallRadius
                 }
             }
 
             Text {
                 text: "Author:"
-                color: "#b86b8c"
-                font.pixelSize: 16
+                color: Theme.secondaryText
+                font.pixelSize: Theme.bodySize
             }
 
             TextField {
                 id: authorInput
+
                 placeholderText: "Author..."
+
                 Layout.preferredWidth: 250
 
-                color: "#b94f82"
-                placeholderTextColor: "#c98ba6"
-                font.pixelSize: 16
+                color: Theme.primaryDark
+                placeholderTextColor: Theme.placeholderText
+                font.pixelSize: Theme.bodySize
 
                 background: Rectangle {
-                    color: "#fffafd"
-                    border.color: authorInput.activeFocus ? "#d95f96" : "#e8a9c4"
-                    border.width: 2
-                    radius: 8
+                    color: Theme.inputBackground
+
+                    border.color: authorInput.activeFocus
+                                  ? Theme.primary
+                                  : Theme.inputBorder
+
+                    border.width: Theme.borderWidth
+                    radius: Theme.smallRadius
                 }
             }
 
             Text {
                 text: "Date read:"
-                color: "#b86b8c"
-                font.pixelSize: 16
+                color: Theme.secondaryText
+                font.pixelSize: Theme.bodySize
             }
 
             TextField {
                 id: dateReadInput
+
                 placeholderText: "YYYY-MM-DD"
+
                 Layout.preferredWidth: 250
 
-                color: "#b94f82"
-                placeholderTextColor: "#c98ba6"
-                font.pixelSize: 16
+                color: Theme.primaryDark
+                placeholderTextColor: Theme.placeholderText
+                font.pixelSize: Theme.bodySize
 
                 background: Rectangle {
-                    color: "#fffafd"
-                    border.color: dateReadInput.activeFocus ? "#d95f96" : "#e8a9c4"
-                    border.width: 2
-                    radius: 8
+                    color: Theme.inputBackground
+
+                    border.color: dateReadInput.activeFocus
+                                  ? Theme.primary
+                                  : Theme.inputBorder
+
+                    border.width: Theme.borderWidth
+                    radius: Theme.smallRadius
                 }
             }
 
             Text {
                 text: "Rating:"
-                color: "#b86b8c"
-                font.pixelSize: 16
+                color: Theme.secondaryText
+                font.pixelSize: Theme.bodySize
             }
 
             TextField {
                 id: ratingInput
+
                 placeholderText: "1–10"
+
                 Layout.preferredWidth: 250
 
-                color: "#b94f82"
-                placeholderTextColor: "#c98ba6"
-                font.pixelSize: 16
+                color: Theme.primaryDark
+                placeholderTextColor: Theme.placeholderText
+                font.pixelSize: Theme.bodySize
 
                 background: Rectangle {
-                    color: "#fffafd"
-                    border.color: ratingInput.activeFocus ? "#d95f96" : "#e8a9c4"
-                    border.width: 2
-                    radius: 8
+                    color: Theme.inputBackground
+
+                    border.color: ratingInput.activeFocus
+                                  ? Theme.primary
+                                  : Theme.inputBorder
+
+                    border.width: Theme.borderWidth
+                    radius: Theme.smallRadius
                 }
             }
         }
@@ -188,21 +215,26 @@ Popup {
                         ratingInput.text
                     ]
                 )
+
                 bookAdded()
                 popup.close()
             }
 
             background: Rectangle {
-                radius: 10
-                color: addBookButton.hovered ? "#f7b9d0" : "#f29abb"
-                border.color: "#c65380"
-                border.width: 2
+                radius: Theme.buttonRadius
+
+                color: addBookButton.hovered
+                       ? Theme.actionButtonHover
+                       : Theme.actionButton
+
+                border.color: Theme.actionButtonBorder
+                border.width: Theme.borderWidth
             }
 
             contentItem: Text {
                 text: parent.text
-                color: "#ffffff"
-                font.pixelSize: 16
+                color: Theme.white
+                font.pixelSize: Theme.buttonTextSize
                 font.bold: true
 
                 horizontalAlignment: Text.AlignHCenter

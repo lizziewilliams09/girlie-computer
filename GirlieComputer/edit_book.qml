@@ -7,8 +7,8 @@ Popup {
 
     anchors.centerIn: Overlay.overlay
 
-    width: 450
-    height: 350
+    width: Theme.popupWidth
+    height: Theme.popupHeight
 
     modal: true
     focus: true
@@ -21,10 +21,10 @@ Popup {
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
     background: Rectangle {
-        color: "#fff3f8"
-        border.color: "#d95f96"
-        border.width: 3
-        radius: 18
+        color: Theme.background
+        border.color: Theme.primary
+        border.width: Theme.popupBorderWidth
+        radius: Theme.popupRadius
     }
 
     Button {
@@ -43,14 +43,17 @@ Popup {
         onClicked: popup.close()
 
         background: Rectangle {
-            color: closeButton.hovered ? "#ffd9e8" : "transparent"
-            radius: 8
+            color: closeButton.hovered
+                   ? Theme.primarySoft
+                   : "transparent"
+
+            radius: Theme.smallRadius
         }
 
         contentItem: Text {
             text: parent.text
-            color: "#d95f96"
-            font.pixelSize: 24
+            color: Theme.primary
+            font.pixelSize: Theme.closeButtonTextSize
             font.bold: true
 
             horizontalAlignment: Text.AlignHCenter
@@ -65,9 +68,9 @@ Popup {
         Text {
             text: "♡ EDIT BOOK ♡"
 
-            font.pixelSize: 28
+            font.pixelSize: Theme.popupTitleSize
             font.bold: true
-            color: "#d95f96"
+            color: Theme.primary
 
             Layout.alignment: Qt.AlignHCenter
         }
@@ -79,8 +82,8 @@ Popup {
 
             Text {
                 text: "Title:"
-                color: "#b86b8c"
-                font.pixelSize: 16
+                color: Theme.secondaryText
+                font.pixelSize: Theme.bodySize
             }
 
             TextField {
@@ -90,21 +93,25 @@ Popup {
 
                 Layout.preferredWidth: 250
 
-                color: "#b94f82"
-                font.pixelSize: 16
+                color: Theme.primaryDark
+                font.pixelSize: Theme.bodySize
 
                 background: Rectangle {
-                    color: "#fffafd"
-                    border.color: titleInput.activeFocus ? "#d95f96" : "#e8a9c4"
-                    border.width: 2
-                    radius: 8
+                    color: Theme.inputBackground
+
+                    border.color: titleInput.activeFocus
+                                  ? Theme.primary
+                                  : Theme.inputBorder
+
+                    border.width: Theme.borderWidth
+                    radius: Theme.smallRadius
                 }
             }
 
             Text {
                 text: "Author:"
-                color: "#b86b8c"
-                font.pixelSize: 16
+                color: Theme.secondaryText
+                font.pixelSize: Theme.bodySize
             }
 
             TextField {
@@ -114,21 +121,25 @@ Popup {
 
                 Layout.preferredWidth: 250
 
-                color: "#b94f82"
-                font.pixelSize: 16
+                color: Theme.primaryDark
+                font.pixelSize: Theme.bodySize
 
                 background: Rectangle {
-                    color: "#fffafd"
-                    border.color: authorInput.activeFocus ? "#d95f96" : "#e8a9c4"
-                    border.width: 2
-                    radius: 8
+                    color: Theme.inputBackground
+
+                    border.color: authorInput.activeFocus
+                                  ? Theme.primary
+                                  : Theme.inputBorder
+
+                    border.width: Theme.borderWidth
+                    radius: Theme.smallRadius
                 }
             }
 
             Text {
                 text: "Date read:"
-                color: "#b86b8c"
-                font.pixelSize: 16
+                color: Theme.secondaryText
+                font.pixelSize: Theme.bodySize
             }
 
             TextField {
@@ -138,21 +149,25 @@ Popup {
 
                 Layout.preferredWidth: 250
 
-                color: "#b94f82"
-                font.pixelSize: 16
+                color: Theme.primaryDark
+                font.pixelSize: Theme.bodySize
 
                 background: Rectangle {
-                    color: "#fffafd"
-                    border.color: dateReadInput.activeFocus ? "#d95f96" : "#e8a9c4"
-                    border.width: 2
-                    radius: 8
+                    color: Theme.inputBackground
+
+                    border.color: dateReadInput.activeFocus
+                                  ? Theme.primary
+                                  : Theme.inputBorder
+
+                    border.width: Theme.borderWidth
+                    radius: Theme.smallRadius
                 }
             }
 
             Text {
                 text: "Rating:"
-                color: "#b86b8c"
-                font.pixelSize: 16
+                color: Theme.secondaryText
+                font.pixelSize: Theme.bodySize
             }
 
             TextField {
@@ -162,14 +177,18 @@ Popup {
 
                 Layout.preferredWidth: 250
 
-                color: "#b94f82"
-                font.pixelSize: 16
+                color: Theme.primaryDark
+                font.pixelSize: Theme.bodySize
 
                 background: Rectangle {
-                    color: "#fffafd"
-                    border.color: ratingInput.activeFocus ? "#d95f96" : "#e8a9c4"
-                    border.width: 2
-                    radius: 8
+                    color: Theme.inputBackground
+
+                    border.color: ratingInput.activeFocus
+                                  ? Theme.primary
+                                  : Theme.inputBorder
+
+                    border.width: Theme.borderWidth
+                    radius: Theme.smallRadius
                 }
             }
         }
@@ -197,16 +216,20 @@ Popup {
                 }
 
                 background: Rectangle {
-                    radius: 10
-                    color: deleteButton.hovered ? "#f3c1c1" : "#e59a9a"
-                    border.color: "#b95f5f"
-                    border.width: 2
+                    radius: Theme.buttonRadius
+
+                    color: deleteButton.hovered
+                           ? Theme.dangerButtonHover
+                           : Theme.dangerButton
+
+                    border.color: Theme.dangerButtonBorder
+                    border.width: Theme.borderWidth
                 }
 
                 contentItem: Text {
                     text: parent.text
-                    color: "#ffffff"
-                    font.pixelSize: 16
+                    color: Theme.white
+                    font.pixelSize: Theme.buttonTextSize
                     font.bold: true
 
                     horizontalAlignment: Text.AlignHCenter
@@ -239,16 +262,20 @@ Popup {
                 }
 
                 background: Rectangle {
-                    radius: 10
-                    color: saveButton.hovered ? "#f7b9d0" : "#f29abb"
-                    border.color: "#c65380"
-                    border.width: 2
+                    radius: Theme.buttonRadius
+
+                    color: saveButton.hovered
+                           ? Theme.actionButtonHover
+                           : Theme.actionButton
+
+                    border.color: Theme.actionButtonBorder
+                    border.width: Theme.borderWidth
                 }
 
                 contentItem: Text {
                     text: parent.text
-                    color: "#ffffff"
-                    font.pixelSize: 16
+                    color: Theme.white
+                    font.pixelSize: Theme.buttonTextSize
                     font.bold: true
 
                     horizontalAlignment: Text.AlignHCenter
@@ -258,3 +285,4 @@ Popup {
         }
     }
 }
+

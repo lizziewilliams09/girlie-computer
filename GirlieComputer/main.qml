@@ -7,14 +7,14 @@ Window {
     height: 600
     visible: true
     title: "Girlie Computer"
-    color: "#fff3f8"
+    color: Theme.background
 
     StackView {
         id: stackView
         anchors.fill: parent
 
         initialItem: Rectangle {
-            color: "#fff3f8"
+            color: Theme.background
 
             ColumnLayout {
                 anchors.centerIn: parent
@@ -22,9 +22,9 @@ Window {
 
                 Text {
                     text: "♡ GIRLIE COMPUTER ♡"
-                    font.pixelSize: 34
+                    font.pixelSize: Theme.pageTitleSize
                     font.bold: true
-                    color: "#d95f96"
+                    color: Theme.primary
                     Layout.alignment: Qt.AlignHCenter
                 }
 
@@ -37,17 +37,21 @@ Window {
                     Layout.preferredHeight: 60
 
                     background: Rectangle {
-                        radius: 14
-                        color: myWorldButton.hovered ? "#ffeaf2" : "#ffd9e8"
-                        border.color: "#d95f96"
-                        border.width: 2
+                        radius: Theme.largeButtonRadius
+                        color: myWorldButton.hovered
+                               ? Theme.primaryHover
+                               : Theme.primarySoft
+
+                        border.color: Theme.primary
+                        border.width: Theme.borderWidth
                     }
 
                     contentItem: Text {
                         text: parent.text
-                        color: "#b94f82"
-                        font.pixelSize: 22
+                        color: Theme.primaryDark
+                        font.pixelSize: Theme.largeMenuButtonTextSize
                         font.bold: true
+
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                     }
@@ -67,17 +71,21 @@ Window {
                         Layout.preferredHeight: 70
 
                         background: Rectangle {
-                            radius: 14
-                            color: souvenirsButton.hovered ? "#ffe8ee" : "#ffd6df"
-                            border.color: "#e66b8e"
-                            border.width: 2
+                            radius: Theme.largeButtonRadius
+                            color: souvenirsButton.hovered
+                                   ? Theme.souvenirsHover
+                                   : Theme.souvenirsSoft
+
+                            border.color: Theme.souvenirsAccent
+                            border.width: Theme.borderWidth
                         }
 
                         contentItem: Text {
                             text: parent.text
-                            color: "#c64f76"
-                            font.pixelSize: 20
+                            color: Theme.souvenirsText
+                            font.pixelSize: Theme.menuButtonTextSize
                             font.bold: true
+
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                         }
@@ -91,17 +99,21 @@ Window {
                         Layout.preferredHeight: 70
 
                         background: Rectangle {
-                            radius: 14
-                            color: musicButton.hovered ? "#f2ebff" : "#e8dcff"
-                            border.color: "#a77bd6"
-                            border.width: 2
+                            radius: Theme.largeButtonRadius
+                            color: musicButton.hovered
+                                   ? Theme.musicHover
+                                   : Theme.musicSoft
+
+                            border.color: Theme.musicAccent
+                            border.width: Theme.borderWidth
                         }
 
                         contentItem: Text {
                             text: parent.text
-                            color: "#8d62bd"
-                            font.pixelSize: 20
+                            color: Theme.musicText
+                            font.pixelSize: Theme.menuButtonTextSize
                             font.bold: true
+
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                         }
@@ -117,17 +129,21 @@ Window {
                         onClicked: stackView.push("books.qml")
 
                         background: Rectangle {
-                            radius: 14
-                            color: booksButton.hovered ? "#fff7da" : "#fff0bd"
-                            border.color: "#e4b94d"
-                            border.width: 2
+                            radius: Theme.largeButtonRadius
+                            color: booksButton.hovered
+                                   ? Theme.booksHover
+                                   : Theme.booksSoft
+
+                            border.color: Theme.booksAccent
+                            border.width: Theme.borderWidth
                         }
 
                         contentItem: Text {
                             text: parent.text
-                            color: "#c89122"
-                            font.pixelSize: 20
+                            color: Theme.booksText
+                            font.pixelSize: Theme.menuButtonTextSize
                             font.bold: true
+
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                         }
@@ -141,17 +157,21 @@ Window {
                         Layout.preferredHeight: 70
 
                         background: Rectangle {
-                            radius: 14
-                            color: filmsButton.hovered ? "#edf3ff" : "#dce9ff"
-                            border.color: "#7da2d6"
-                            border.width: 2
+                            radius: Theme.largeButtonRadius
+                            color: filmsButton.hovered
+                                   ? Theme.filmsHover
+                                   : Theme.filmsSoft
+
+                            border.color: Theme.filmsAccent
+                            border.width: Theme.borderWidth
                         }
 
                         contentItem: Text {
                             text: parent.text
-                            color: "#6688bd"
-                            font.pixelSize: 20
+                            color: Theme.filmsText
+                            font.pixelSize: Theme.menuButtonTextSize
                             font.bold: true
+
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
                         }
@@ -167,17 +187,21 @@ Window {
                     Layout.preferredHeight: 60
 
                     background: Rectangle {
-                        radius: 14
-                        color: diaryButton.hovered ? "#ffe9e4" : "#ffd6cf"
-                        border.color: "#e78078"
-                        border.width: 2
+                        radius: Theme.largeButtonRadius
+                        color: diaryButton.hovered
+                               ? Theme.diaryHover
+                               : Theme.diarySoft
+
+                        border.color: Theme.diaryAccent
+                        border.width: Theme.borderWidth
                     }
 
                     contentItem: Text {
                         text: parent.text
-                        color: "#cc675f"
-                        font.pixelSize: 22
+                        color: Theme.diaryText
+                        font.pixelSize: Theme.largeMenuButtonTextSize
                         font.bold: true
+
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                     }

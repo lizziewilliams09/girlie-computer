@@ -22,3 +22,5 @@ InsertBook insert_book.qml
 ViewBook view_book.qml
 
 EditBook edit_book.qml
+
+singleton Theme 1.0 theme.qml

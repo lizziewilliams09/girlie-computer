@@ -7,8 +7,8 @@ Popup {
 
     anchors.centerIn: Overlay.overlay
 
-    width: 450
-    height: 350
+    width: Theme.popupWidth
+    height: Theme.popupHeight
 
     modal: true
     focus: true
@@ -22,10 +22,10 @@ Popup {
     signal bookDeleted()
 
     background: Rectangle {
-        color: "#fff3f8"
-        border.color: "#d95f96"
-        border.width: 3
-        radius: 18
+        color: Theme.background
+        border.color: Theme.primary
+        border.width: Theme.popupBorderWidth
+        radius: Theme.popupRadius
     }
 
     // X button
@@ -45,22 +45,23 @@ Popup {
         onClicked: popup.close()
 
         background: Rectangle {
-            color: closeButton.hovered ? "#ffd9e8" : "transparent"
-            radius: 8
+            color: closeButton.hovered
+                   ? Theme.primarySoft
+                   : "transparent"
+
+            radius: Theme.smallRadius
         }
 
         contentItem: Text {
             text: parent.text
-            color: "#d95f96"
-            font.pixelSize: 24
+            color: Theme.primary
+            font.pixelSize: Theme.closeButtonTextSize
             font.bold: true
 
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
     }
-
-
 
     ColumnLayout {
         anchors.centerIn: parent
@@ -69,9 +70,9 @@ Popup {
         Text {
             text: book ? "♡ " + book.Title.toUpperCase() + " ♡" : ""
 
-            font.pixelSize: 26
+            font.pixelSize: Theme.detailTitleSize
             font.bold: true
-            color: "#d95f96"
+            color: Theme.primary
 
             Layout.alignment: Qt.AlignHCenter
         }
@@ -83,54 +84,54 @@ Popup {
 
             Text {
                 text: "Title:"
-                color: "#b86b8c"
-                font.pixelSize: 16
+                color: Theme.secondaryText
+                font.pixelSize: Theme.bodySize
                 font.bold: true
             }
 
             Text {
                 text: book ? book.Title : ""
-                color: "#b94f82"
-                font.pixelSize: 16
+                color: Theme.primaryDark
+                font.pixelSize: Theme.bodySize
             }
 
             Text {
                 text: "Author:"
-                color: "#b86b8c"
-                font.pixelSize: 16
+                color: Theme.secondaryText
+                font.pixelSize: Theme.bodySize
                 font.bold: true
             }
 
             Text {
                 text: book ? book.Author : ""
-                color: "#b94f82"
-                font.pixelSize: 16
+                color: Theme.primaryDark
+                font.pixelSize: Theme.bodySize
             }
 
             Text {
                 text: "Date read:"
-                color: "#b86b8c"
-                font.pixelSize: 16
+                color: Theme.secondaryText
+                font.pixelSize: Theme.bodySize
                 font.bold: true
             }
 
             Text {
                 text: book ? book.DateRead : ""
-                color: "#b94f82"
-                font.pixelSize: 16
+                color: Theme.primaryDark
+                font.pixelSize: Theme.bodySize
             }
 
             Text {
                 text: "Rating:"
-                color: "#b86b8c"
-                font.pixelSize: 16
+                color: Theme.secondaryText
+                font.pixelSize: Theme.bodySize
                 font.bold: true
             }
 
             Text {
                 text: book ? book.Rating + " / 10" : ""
-                color: "#b94f82"
-                font.pixelSize: 16
+                color: Theme.primaryDark
+                font.pixelSize: Theme.bodySize
             }
         }
 
@@ -149,16 +150,20 @@ Popup {
             }
 
             background: Rectangle {
-                radius: 10
-                color: editButton.hovered ? "#f7b9d0" : "#f29abb"
-                border.color: "#c65380"
-                border.width: 2
+                radius: Theme.buttonRadius
+
+                color: editButton.hovered
+                       ? Theme.actionButtonHover
+                       : Theme.actionButton
+
+                border.color: Theme.actionButtonBorder
+                border.width: Theme.borderWidth
             }
 
             contentItem: Text {
                 text: parent.text
-                color: "#ffffff"
-                font.pixelSize: 16
+                color: Theme.white
+                font.pixelSize: Theme.buttonTextSize
                 font.bold: true
 
                 horizontalAlignment: Text.AlignHCenter
@@ -181,3 +186,4 @@ Popup {
         }
     }
 }
+

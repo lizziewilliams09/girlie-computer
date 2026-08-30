@@ -1,3 +1,4 @@
+
 import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Layouts
@@ -5,7 +6,7 @@ import QtQuick.Layouts
 Rectangle {
     id: booksPage
 
-    color: "#fff3f8"
+    color: Theme.background
 
     property var books: []
 
@@ -20,9 +21,9 @@ Rectangle {
         anchors.top: parent.top
         anchors.topMargin: 45
 
-        font.pixelSize: 34
+        font.pixelSize: Theme.pageTitleSize
         font.bold: true
-        color: "#d95f96"
+        color: Theme.primary
     }
 
     Button {
@@ -41,16 +42,20 @@ Rectangle {
         onClicked: stackView.pop()
 
         background: Rectangle {
-            radius: 12
-            color: homeButton.hovered ? "#ffeaf2" : "#ffd9e8"
-            border.color: "#d95f96"
-            border.width: 2
+            radius: Theme.mediumRadius
+
+            color: homeButton.hovered
+                   ? Theme.primaryHover
+                   : Theme.primarySoft
+
+            border.color: Theme.primary
+            border.width: Theme.borderWidth
         }
 
         contentItem: Text {
             text: parent.text
-            color: "#b94f82"
-            font.pixelSize: 17
+            color: Theme.primaryDark
+            font.pixelSize: Theme.homeButtonTextSize
             font.bold: true
 
             horizontalAlignment: Text.AlignHCenter
@@ -115,9 +120,12 @@ Rectangle {
                     width: 65
                     height: 130
 
-                    color: bookMouseArea.containsMouse ? "#f1bdd2" : "#e8a9c4"
-                    border.color: "#b94f82"
-                    border.width: 3
+                    color: bookMouseArea.containsMouse
+                           ? "#f1bdd2"
+                           : "#e8a9c4"
+
+                    border.color: Theme.primaryDark
+                    border.width: Theme.popupBorderWidth
                     radius: 4
 
                     Text {
@@ -127,7 +135,7 @@ Rectangle {
 
                         width: parent.height - 10
 
-                        color: "#ffffff"
+                        color: Theme.white
                         font.pixelSize: 14
                         font.bold: true
 
@@ -165,15 +173,18 @@ Rectangle {
                 onClicked: insertBookPopup.open()
 
                 background: Rectangle {
-                    color: addBook.hovered ? "#ffd6e6" : "#f7a9c5"
-                    border.color: "#c65380"
-                    border.width: 3
+                    color: addBook.hovered
+                           ? Theme.actionButtonHover
+                           : Theme.actionButton
+
+                    border.color: Theme.actionButtonBorder
+                    border.width: Theme.popupBorderWidth
                     radius: 4
                 }
 
                 contentItem: Text {
                     text: "+"
-                    color: "#ffffff"
+                    color: Theme.white
 
                     font.pixelSize: 45
                     font.bold: true
@@ -192,15 +203,15 @@ Rectangle {
         anchors.top: bookshelf.bottom
         anchors.topMargin: 20
 
-        font.pixelSize: 16
-        color: "#b86b8c"
+        font.pixelSize: Theme.bodySize
+        color: Theme.secondaryText
     }
 
     InsertBook {
         id: insertBookPopup
 
         onBookAdded: {
-        books = backend.get_items("books")
+            books = backend.get_items("books")
         }
     }
 
@@ -214,5 +225,5 @@ Rectangle {
         onBookDeleted: {
             books = backend.get_items("books")
         }
-}
+    }
 }
