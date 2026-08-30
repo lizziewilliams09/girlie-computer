@@ -110,10 +110,12 @@ Rectangle {
                 model: books
 
                 Rectangle {
+                    id: bookSpine
+
                     width: 65
                     height: 130
 
-                    color: "#e8a9c4"
+                    color: bookMouseArea.containsMouse ? "#f1bdd2" : "#e8a9c4"
                     border.color: "#b94f82"
                     border.width: 3
                     radius: 4
@@ -135,6 +137,20 @@ Rectangle {
                         rotation: -90
 
                         elide: Text.ElideRight
+                    }
+
+                    MouseArea {
+                        id: bookMouseArea
+
+                        anchors.fill: parent
+
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+
+                        onClicked: {
+                            viewBookPopup.book = modelData
+                            viewBookPopup.open()
+                        }
                     }
                 }
             }
@@ -186,5 +202,9 @@ Rectangle {
         onBookAdded: {
         books = backend.get_items("books")
         }
+    }
+
+    ViewBook {
+        id: viewBookPopup
     }
 }
