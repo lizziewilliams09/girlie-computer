@@ -72,27 +72,9 @@ Popup {
                 font.pixelSize: Theme.bodySize
             }
 
-            TextField {
+            GirlieTextField {
                 id: titleInput
-
                 placeholderText: "Book title..."
-
-                Layout.preferredWidth: 250
-
-                color: Theme.primaryDark
-                placeholderTextColor: Theme.placeholderText
-                font.pixelSize: Theme.bodySize
-
-                background: Rectangle {
-                    color: Theme.inputBackground
-
-                    border.color: titleInput.activeFocus
-                                  ? Theme.primary
-                                  : Theme.inputBorder
-
-                    border.width: Theme.borderWidth
-                    radius: Theme.smallRadius
-                }
             }
 
             Text {
@@ -101,27 +83,9 @@ Popup {
                 font.pixelSize: Theme.bodySize
             }
 
-            TextField {
+            GirlieTextField {
                 id: authorInput
-
                 placeholderText: "Author..."
-
-                Layout.preferredWidth: 250
-
-                color: Theme.primaryDark
-                placeholderTextColor: Theme.placeholderText
-                font.pixelSize: Theme.bodySize
-
-                background: Rectangle {
-                    color: Theme.inputBackground
-
-                    border.color: authorInput.activeFocus
-                                  ? Theme.primary
-                                  : Theme.inputBorder
-
-                    border.width: Theme.borderWidth
-                    radius: Theme.smallRadius
-                }
             }
 
             Text {
@@ -130,27 +94,9 @@ Popup {
                 font.pixelSize: Theme.bodySize
             }
 
-            TextField {
+            GirlieTextField {
                 id: dateReadInput
-
                 placeholderText: "YYYY-MM-DD"
-
-                Layout.preferredWidth: 250
-
-                color: Theme.primaryDark
-                placeholderTextColor: Theme.placeholderText
-                font.pixelSize: Theme.bodySize
-
-                background: Rectangle {
-                    color: Theme.inputBackground
-
-                    border.color: dateReadInput.activeFocus
-                                  ? Theme.primary
-                                  : Theme.inputBorder
-
-                    border.width: Theme.borderWidth
-                    radius: Theme.smallRadius
-                }
             }
 
             Text {
@@ -159,27 +105,9 @@ Popup {
                 font.pixelSize: Theme.bodySize
             }
 
-            TextField {
+            GirlieTextField {
                 id: ratingInput
-
                 placeholderText: "1–10"
-
-                Layout.preferredWidth: 250
-
-                color: Theme.primaryDark
-                placeholderTextColor: Theme.placeholderText
-                font.pixelSize: Theme.bodySize
-
-                background: Rectangle {
-                    color: Theme.inputBackground
-
-                    border.color: ratingInput.activeFocus
-                                  ? Theme.primary
-                                  : Theme.inputBorder
-
-                    border.width: Theme.borderWidth
-                    radius: Theme.smallRadius
-                }
             }
         }
 

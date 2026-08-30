@@ -26,3 +26,5 @@ EditBook 1.0 edit_book.qml
 singleton Theme 1.0 theme.qml
 
 GirlieButton 1.0 girlie_button.qml
+
+GirlieTextField 1.0 girlie_text_field.qml
