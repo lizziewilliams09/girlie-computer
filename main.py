@@ -4,6 +4,7 @@ import sqlite3
 from PySide6.QtCore import QObject, Slot
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine
+from PySide6.QtGui import QFont, QFontDatabase
 
 connection = sqlite3.connect('girlie.db')
 cursor = connection.cursor()
@@ -169,6 +170,12 @@ if __name__ == "__main__":
     create_tables()
 
     app = QGuiApplication(sys.argv)
+
+    font_id = QFontDatabase.addApplicationFont("dogicapixel.ttf")
+    font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
+
+    app.setFont(QFont(font_family))
+
     engine = QQmlApplicationEngine()
     engine.addImportPath(sys.path[0])
     
