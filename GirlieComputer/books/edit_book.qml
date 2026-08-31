@@ -9,9 +9,14 @@ GirliePopup {
     id: popup
 
     property var book: null
-
+    
+  
     signal bookEdited()
     signal bookDeleted()
+
+    onBookChanged: {
+        ratingInput.rating = book ? book.Rating : 0
+    }
 
     ColumnLayout {
         anchors.centerIn: parent
@@ -71,10 +76,11 @@ GirliePopup {
                 font.pixelSize: Theme.bodySize
             }
 
-            GirlieTextField {
+            StarRating {
                 id: ratingInput
-                text: book ? book.Rating : ""
+                editable: true
             }
+
         }
 
         RowLayout {
@@ -125,7 +131,7 @@ GirliePopup {
                     titleInput.text,
                     authorInput.text,
                     dateReadInput.text,
-                    ratingInput.text
+                    ratingInput.rating
                 ]
             )
 

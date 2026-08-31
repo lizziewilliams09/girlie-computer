@@ -4,7 +4,11 @@ import QtQuick.Shapes
 import ".."
 
 Row {
+    id: root
+
     property int rating: 0
+    property bool editable: false
+
     spacing: 3
 
     Repeater {
@@ -17,7 +21,9 @@ Row {
             ShapePath {
                 strokeColor: Theme.primary
                 strokeWidth: 1.5
-                fillColor: index < rating ? Theme.primary : "transparent"
+                fillColor: index < root.rating
+                           ? Theme.primary
+                           : "transparent"
 
                 startX: 8
                 startY: 1
@@ -32,6 +38,20 @@ Row {
                 PathLine { x: 1;  y: 6 }
                 PathLine { x: 6;  y: 6 }
                 PathLine { x: 8;  y: 1 }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                enabled: root.editable
+                hoverEnabled: root.editable
+
+                cursorShape: root.editable
+                            ? Qt.PointingHandCursor
+                            : Qt.ArrowCursor
+
+                onClicked: {
+                    root.rating = index + 1
+                }
             }
         }
     }
