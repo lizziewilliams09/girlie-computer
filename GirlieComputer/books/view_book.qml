@@ -79,11 +79,10 @@ GirliePopup {
                 font.bold: true
             }
 
-            Text {
-                text: book ? book.Rating + " / 10" : ""
-                color: Theme.primaryDark
-                font.pixelSize: Theme.bodySize
+            StarRating {
+                rating: book ? book.Rating : 0
             }
+            
         }
 
         GirlieButton {

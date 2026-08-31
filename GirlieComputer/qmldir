@@ -24,6 +24,7 @@ GirliePopup 1.0 components/girlie_popup.qml
 GirlieConfirmPopup 1.0 components/girlie_confirm_popup.qml
 GirlieHomeButton 1.0 components/girlie_home_button.qml
 GirlieBackButton 1.0 components/girlie_back_button.qml
+StarRating 1.0 components/star_rating.qml
 
 ## Books
 
