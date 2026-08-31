@@ -94,7 +94,7 @@ Window {
                         buttonRadius: Theme.largeButtonRadius
                         buttonTextSize: Theme.menuButtonTextSize
 
-                        onClicked: stackView.push("books.qml")
+                        onClicked: stackView.push(booksPage)
                     }
 
                     GirlieButton {
@@ -129,6 +129,17 @@ Window {
                     buttonTextSize: Theme.largeMenuButtonTextSize
                 }
             }
+        }
+    }
+
+    // -------------------------
+    // PAGES
+    // -------------------------
+
+    Component {
+        id: booksPage
+
+        Books {
         }
     }
 }

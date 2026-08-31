@@ -10,25 +10,25 @@ module GirlieComputer
 
 
 Main 1.0 main.qml
+singleton Theme 1.0 theme.qml
 
 
 # this is basically a little registration entry. It tells QML:
 # “This module contains a component/type called Main and its code lives in the file main.qml.”
 
-Books 1.0 books.qml
+## Components
 
-InsertBook 1.0 insert_book.qml
+GirlieButton 1.0 components/girlie_button.qml
+GirlieTextField 1.0 components/girlie_text_field.qml
+GirliePopup 1.0 components/girlie_popup.qml
+GirlieConfirmPopup 1.0 components/girlie_confirm_popup.qml
 
-ViewBook 1.0 view_book.qml
+## Books
 
-EditBook 1.0 edit_book.qml
+Books 1.0 books/books.qml
+InsertBook 1.0 books/insert_book.qml
+ViewBook 1.0 books/view_book.qml
+EditBook 1.0 books/edit_book.qml
 
-singleton Theme 1.0 theme.qml
 
-GirlieButton 1.0 girlie_button.qml
 
-GirlieTextField 1.0 girlie_text_field.qml
-
-GirliePopup 1.0 girlie_popup.qml
-
-GirlieConfirmPopup 1.0 girlie_confirm_popup.qml

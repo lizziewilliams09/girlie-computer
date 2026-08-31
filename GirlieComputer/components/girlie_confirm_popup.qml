@@ -2,6 +2,9 @@ import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Layouts
 
+// Import reusable QML types from the parent GirlieComputer folder
+import ".."
+
 GirliePopup {
     id: root
 

@@ -2,20 +2,27 @@ import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Layouts
 
+// Import QML types from the parent folder
+import ".."
+
 GirliePopup {
     id: popup
 
-    property var book: null
+    signal bookAdded()
 
-    signal bookEdited()
-    signal bookDeleted()
+    onClosed: {
+        titleInput.text = ""
+        authorInput.text = ""
+        dateReadInput.text = ""
+        ratingInput.text = ""
+    }
 
     ColumnLayout {
         anchors.centerIn: parent
         spacing: 25
 
         Text {
-            text: "♡ EDIT BOOK ♡"
+            text: "♡ ADD A BOOK ♡"
 
             font.pixelSize: Theme.popupTitleSize
             font.bold: true
@@ -37,7 +44,7 @@ GirliePopup {
 
             GirlieTextField {
                 id: titleInput
-                text: book ? book.Title : ""
+                placeholderText: "Book title..."
             }
 
             Text {
@@ -48,7 +55,7 @@ GirliePopup {
 
             GirlieTextField {
                 id: authorInput
-                text: book ? book.Author : ""
+                placeholderText: "Author..."
             }
 
             Text {
@@ -59,7 +66,7 @@ GirliePopup {
 
             GirlieTextField {
                 id: dateReadInput
-                text: book ? book.DateRead : ""
+                placeholderText: "YYYY-MM-DD"
             }
 
             Text {
@@ -70,54 +77,35 @@ GirliePopup {
 
             GirlieTextField {
                 id: ratingInput
-                text: book ? book.Rating : ""
+                placeholderText: "1–10"
             }
         }
 
-        RowLayout {
+        GirlieButton {
+            text: "ADD BOOK"
+
             Layout.alignment: Qt.AlignHCenter
-            spacing: 15
+            Layout.preferredWidth: 140
+            Layout.preferredHeight: 45
 
-            GirlieButton {
-                text: "DELETE BOOK"
-
-                Layout.preferredWidth: 140
-                Layout.preferredHeight: 45
-
-                normalColor: Theme.dangerButton
-                hoverColor: Theme.dangerButtonHover
-                borderColor: Theme.dangerButtonBorder
-                textColor: Theme.white
-
-                onClicked: confirmDeletePopup.open()
-            }
-
-            GirlieButton {
-                text: "SAVE CHANGES"
-
-                Layout.preferredWidth: 160
-                Layout.preferredHeight: 45
-
-                onClicked: confirmSavePopup.open()
-            }
+            onClicked: confirmAddPopup.open()
         }
     }
 
 
     // -------------------------
-    // SAVE CONFIRMATION
+    // ADD CONFIRMATION
     // -------------------------
 
     GirlieConfirmPopup {
-        id: confirmSavePopup
+        id: confirmAddPopup
 
-        titleText: "♡ SAVE CHANGES? ♡"
-        messageText: "Are you sure you want to save these changes?"
+        titleText: "♡ ADD BOOK? ♡"
+        messageText: "Are you sure you want to add this book?"
 
         onConfirmed: {
-            backend.edit_item(
+            backend.add_item(
                 "books",
-                book.BookID,
                 [
                     titleInput.text,
                     authorInput.text,
@@ -126,29 +114,7 @@ GirliePopup {
                 ]
             )
 
-            bookEdited()
-            popup.close()
-        }
-    }
-
-
-    // -------------------------
-    // DELETE CONFIRMATION
-    // -------------------------
-
-    GirlieConfirmPopup {
-        id: confirmDeletePopup
-
-        titleText: "♡ DELETE BOOK? ♡"
-        messageText: "Are you sure you want to delete this book?"
-
-        onConfirmed: {
-            backend.delete_item(
-                "books",
-                book.BookID
-            )
-
-            bookDeleted()
+            bookAdded()
             popup.close()
         }
     }

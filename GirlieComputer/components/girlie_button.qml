@@ -1,6 +1,9 @@
 import QtQuick
 import QtQuick.Controls.Basic
 
+// Import reusable QML types from the parent GirlieComputer folder
+import ".."
+
 Button {
     id: root
 
