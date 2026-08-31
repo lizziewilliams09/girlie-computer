@@ -22,6 +22,7 @@ GirlieButton 1.0 components/girlie_button.qml
 GirlieTextField 1.0 components/girlie_text_field.qml
 GirliePopup 1.0 components/girlie_popup.qml
 GirlieConfirmPopup 1.0 components/girlie_confirm_popup.qml
+GirlieHomeButton 1.0 components/girlie_home_button.qml
 
 ## Books
 
@@ -29,6 +30,7 @@ Books 1.0 books/books.qml
 InsertBook 1.0 books/insert_book.qml
 ViewBook 1.0 books/view_book.qml
 EditBook 1.0 books/edit_book.qml
+
 
 
 
