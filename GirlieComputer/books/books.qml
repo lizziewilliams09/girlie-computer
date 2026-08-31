@@ -29,6 +29,7 @@ Rectangle {
     }
 
     GirlieHomeButton {}
+    GirlieBackButton {}
 
     // The actual bookshelf
     Rectangle {
