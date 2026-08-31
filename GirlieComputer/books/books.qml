@@ -94,25 +94,29 @@ Rectangle {
 
                     border.color: Theme.primaryDark
                     border.width: Theme.popupBorderWidth
-                    radius: 4
+                    radius: Theme.smallRadius
 
-                    Text {
-                        text: modelData.Title
+                    Item {
+                        width: parent.height - 10
+                        height: parent.width - 10
 
                         anchors.centerIn: parent
-
-                        width: parent.height - 10
-
-                        color: Theme.white
-                        font.pixelSize: 14
-                        font.bold: true
-
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-
                         rotation: -90
 
-                        elide: Text.ElideRight
+                        Text {
+                            anchors.fill: parent
+
+                            text: modelData.Title
+
+                            color: Theme.white
+                            font.pixelSize: 14
+                            font.bold: true
+
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+
+                            wrapMode: Text.WordWrap
+                        }
                     }
 
                     MouseArea {
@@ -143,7 +147,7 @@ Rectangle {
                 borderColor: Theme.actionButtonBorder
                 textColor: Theme.white
 
-                buttonRadius: 4
+                buttonRadius: Theme.smallRadius
                 buttonTextSize: 45
 
                 onClicked: insertBookPopup.open()
